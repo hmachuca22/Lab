@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+{% extends 'base/base.html' %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    {% block content %}
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Panel <span class="fw-300"><i>Home</i></span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="panel-tag">
+                          Si desea ingresar a cualquiera de los siguientes modulos de click en la imagen
+                        </div>
+                        <div class="row">
+                            <!-- <div class="col-4 col-sm-4 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center mb-g">
+                                <div class="rounded bg-white p-0 m-0 d-flex flex-column w-100 h-100">
+                                    <div class="rounded-top w-100 bg-primary-50">
+                                        <div class="rounded-top d-flex align-items-center justify-content-center w-100 pt-3 pb-3 pr-2 pl-2 hover-bg">
+                                            <span class="icon-stack fa-6x">
+                                                <i class="base-2 icon-stack-3x color-primary-600"></i>
+                                                <i class="base-3 icon-stack-2x color-primary-700"></i>
+                                                <i class="ni ni-settings icon-stack-1x text-white"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-bottom p-1 w-100 d-flex justify-content-center align-items-center text-center">
+                                        <span class="d-block text-truncate text-muted">base-2</span>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-4 col-sm-4 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center mb-g">
+                                <a href="{% url 'mesa-list' %}" class="icon-block">
+                                <div class="rounded bg-white p-0 m-0 d-flex flex-column w-100 h-100">
+                                    <div class="rounded-top w-100 bg-warning-50">
+                                        <div class="rounded-top d-flex align-items-center justify-content-center w-100 pt-3 pb-3 pr-2 pl-2 hover-bg">
+                                            <span class="icon-stack fa-6x">
+                                                <i class="base-9 icon-stack-3x color-success-400"></i>
+                                                <i class="base-2 icon-stack-2x color-success-500"></i>
+                                                <i class="fal fa-house-signal icon-stack-1x text-white"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-bottom p-1 w-100 d-flex justify-content-center align-items-center text-center">
+                                        <span class="d-block text-truncate text-muted">Mesas</span>
+                                    </div>
+                                </div>
+                              </a>
+                            </div>
+                            <div class="col-4 col-sm-4 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center mb-g">
+
+                                <div class="rounded bg-white p-0 m-0 d-flex flex-column w-100 h-100">
+                                  <a href="{% url 'estadistica'  %}" target="_blank"  class="icon-block">
+                                    <div class="rounded-top w-100 bg-info-50">
+                                        <div class="rounded-top d-flex align-items-center justify-content-center w-100 pt-3 pb-3 pr-2 pl-2 hover-bg">
+                                            <span class="icon-stack fa-6x">
+
+                                                <i class="base-7 icon-stack-3x color-info-500"></i>
+                                                <i class="base-7 icon-stack-2x color-info-700"></i>
+                                                <i class="fal fa-analytics icon-stack-1x text-white"></i>
+
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-bottom p-1 w-100 d-flex justify-content-center align-items-center text-center">
+                                        <span class="d-block text-truncate text-muted">Estadisticas del sitio</span>
+                                    </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="col-4 col-sm-4 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center mb-g">
+                                <div class="rounded bg-white p-0 m-0 d-flex flex-column w-100 h-100">
+                                    <div class="rounded-top w-100 bg-info-50">
+                                        <div class="rounded-top d-flex align-items-center justify-content-center w-100 pt-3 pb-3 pr-2 pl-2 hover-bg">
+                                            <span class="icon-stack fa-6x">
+                                              <a href="{% url 'candidato-list' %}" class="icon-block">
+                                                <i class="base-7 icon-stack-3x color-info-850"></i>
+                                                <i class="base-7 icon-stack-2x color-info-700"></i>
+                                                <i class="ni ni-user icon-stack-1x text-white"></i>
+                                              </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-bottom p-1 w-100 d-flex justify-content-center align-items-center text-center">
+                                        <span class="d-block text-truncate text-muted">Candidatos</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-4 col-sm-4 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center mb-g">
+                                <div class="rounded bg-white p-0 m-0 d-flex flex-column w-100 h-100">
+                                    <div class="rounded-top w-100 bg-info-50">
+                                        <div class="rounded-top d-flex align-items-center justify-content-center w-100 pt-3 pb-3 pr-2 pl-2 hover-bg">
+                                            <span class="icon-stack fa-6x">
+                                              <a href="{% url 'escrutinio-list' %}" class="icon-block">
+                                                <i class="base-7 icon-stack-3x color-info-500"></i>
+                                                <i class="base-7 icon-stack-2x color-info-850"></i>
+                                                <i class="fal fa-clipboard-list-check icon-stack-1x text-white"></i>
+                                              </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-bottom p-1 w-100 d-flex justify-content-center align-items-center text-center">
+                                        <span class="d-block text-truncate text-muted">Votos Registrados </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-4 col-sm-4 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center mb-g">
+                                <div class="rounded bg-white p-0 m-0 d-flex flex-column w-100 h-100">
+                                    <div class="rounded-top w-100 bg-danger-50">
+                                        <div class="rounded-top d-flex align-items-center justify-content-center w-100 pt-3 pb-3 pr-2 pl-2 hover-bg">
+                                            <span class="icon-stack fa-6x">
+                                                <i class="base-4 icon-stack-3x color-danger-500"></i>
+                                                <i class="base-4 icon-stack-1x color-danger-400"></i>
+                                                <i class="ni ni-envelope icon-stack-1x text-white"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-bottom p-1 w-100 d-flex justify-content-center align-items-center text-center">
+                                        <span class="d-block text-truncate text-muted">base-4</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 col-sm-4 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center mb-g">
+                                <div class="rounded bg-white p-0 m-0 d-flex flex-column w-100 h-100">
+                                    <div class="rounded-top w-100 bg-warning-50">
+                                        <div class="rounded-top d-flex align-items-center justify-content-center w-100 pt-3 pb-3 pr-2 pl-2 hover-bg">
+                                            <span class="icon-stack fa-6x">
+                                                <i class="base-16 icon-stack-3x color-fusion-500"></i>
+                                                <i class="base-10 icon-stack-1x color-primary-50 opacity-30"></i>
+                                                <i class="base-10 icon-stack-1x fs-xl color-primary-50 opacity-20"></i>
+                                                <i class="fal fa-dot-circle icon-stack-1x text-white opacity-85"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-bottom p-1 w-100 d-flex justify-content-center align-items-center text-center">
+                                        <span class="d-block text-truncate text-muted">base-16</span>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-4 col-sm-4 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center mb-g">
+                                <div class="rounded bg-white p-0 m-0 d-flex flex-column w-100 h-100">
+                                    <div class="rounded-top w-100 bg-warning-50">
+                                        <div class="rounded-top d-flex align-items-center justify-content-center w-100 pt-3 pb-3 pr-2 pl-2 hover-bg">
+                                            <span class="icon-stack fa-6x">
+                                                <a href="{% url 'home' %}" class="icon-block">
+                                                <i class="base-1 icon-stack-3x color-primary-400"></i>
+                                                <i class="base-7 icon-stack-2x color-primary-300"></i>
+                                                <i class="base-7 icon-stack-1x fs-xxl color-primary-200"></i>
+                                                <i class="icon-stack-1x color-primary-500"></i>
+                                                <i class="fal fa-home icon-stack-1x text-white opacity-85"></i>
+                                              </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-bottom p-1 w-100 d-flex justify-content-center align-items-center text-center">
+                                        <span class="d-block text-truncate text-muted">Pagina Principal</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>

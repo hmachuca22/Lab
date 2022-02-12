@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+{% extends 'base/base.html'%}
+{% load widget_tweaks %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% block content%}
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Panel <span class="fw-300"><i>Home</i></span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                      {{ form.message.errors }}
+                        <label for="{{ form.message.id_for_label }}">Your message:</label>
+                      {{ form.message }}
+                        <div class="panel-tag">
+                            It stash and was even had of collection the latest story still every or times derive come way. Travelling business ill. Helplessly starting didn't should he her bad will so through audiences to the supported congress, if card with was way allows century quarter the control village for of payload.
+                        </div>
+                        <form class="needs-validation was-validated" novalidate="" method="post"  enctype="multipart/form-data">
+                          {% csrf_token %}
+                          <div class="form-row">
+                          <div class="col-md-4 mb-3">
+                              <label class="form-label" for="validationTooltip01">Tipo de Candidato <span class="text-danger">*</span> </label>
+                                {{ form.tipo|add_class:"form-control select2 select2-hidden-accessible" }}
+                              <div class="valid-tooltip">
+                                  Correcto!!!
+                              </div>
+                          </div>
+                          <div class="col-md-4 mb-3">
+                              <label class="form-label" for="validationTooltip01">Corriente <span class="text-danger">*</span> </label>
+                                {{ form.partido|add_class:"form-control select2" }}
+                              <div class="valid-tooltip">
+                                  Correcto!!!
+                              </div>
+                          </div>
+                          <div class="col-md-4 mb-3">
+                            <div class="form-group">
+                              <label  for="{{ form.identidad.id_for_label }}" class="form-label" for="validationTooltip01">Identidad  </label>
+                                {{ form.identidad|add_class:"form-control" }}
+                              <div class="valid-tooltip">
+                                  Correcto!!!
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                          <br>
+                          <div class="form-row">
+                          <div class="col-md-4 mb-3">
+                              <div class="form-group">
+                                <label  for="{{ form.nombre.id_for_label }}" class="form-label" for="validationTooltip01">Departamento <span class="text-danger">*</span> </label>
+                                <select name="departamento" id="id_departamento" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+                                  <option > ----  Seleccione  ----</option>
+                                  {% for d in departamentos %}
+                                    <option value="{{d.pk}}" >{{d.nombre}}</option>
+                                  {% endfor %}
+                                  </select>
+                                <div class="valid-tooltip">
+                                    Correcto!!!
+                                </div>
+                              </div>
+                          </div>
+                          <div class="col-md-4 mb-3">
+                              <label class="form-label" for="validationTooltip01">Municipio <span class="text-danger">*</span> </label>
+                              <select name="municipio" class="form-control select2" required="" id="id_municipio">
+                                <option value="" selected="">---------</option>
+                                {% for m in municipios %}
+                                  <option value="{{m.pk}}" >{{m.departamento.nombre}} | {{m.nombre}}</option>
+                                {% endfor %}
+                              </select>
+                              <div class="valid-tooltip">
+                                  Correcto!!!
+                              </div>
+                          </div>
+                          </div>
+                          <br>
+                          <div class="form-row">
+                          <div class="col-md-4 mb-3">
+                              <div class="form-group">
+                                <label  for="{{ form.nombre.id_for_label }}" class="form-label" for="validationTooltip01">Nombre <span class="text-danger">*</span> </label>
+                                  {{ form.nombre|add_class:"form-control" }}
+                                <div class="valid-tooltip">
+                                    Correcto!!!
+                                </div>
+                              </div>
+                          </div>
+                          <div class="col-md-4 mb-3">
+                              <label class="form-label" for="validationTooltip01">Sexo <span class="text-danger">*</span> </label>
+                                {{ form.Sexo|add_class:"form-control select2 select2-hidden-accessible" }}
+                              <div class="valid-tooltip">
+                                  Correcto!!!
+                              </div>
+                          </div>
+                          </div>
+                          <br>
+                          <br>
+                          <div class="form-row">
+                          <div class="col-md-4 mb-3">
+                              <label class="form-label" for="{{ form.foto.id_for_label }}">Fotografia <span class="text-danger">*</span> </label>
+                                {{ form.foto|add_class:"form-control" }}
+                              <div class="valid-tooltip">
+                                  Correcto!!!
+                              </div>
+                          </div>
+                          </div>
+                          <br>
+
+                        <button class="btn btn-primary ml-auto waves-effect waves-themed" type="submit">Guardar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+  {%  block script %}
+  <script type="text/javascript">
+
+    $(function () {
+      $('.select2').select2();
+      {% if error  %}
+      toastr.error('Error en el formulario, por favor verifique los campos')
+      {% endif %}
+      {% if exito  %}
+      toastr.success('Formulario guardado con exito')
+      {% endif %}
+   })
+  </script>
+  {% endblock %}
+  </body>
+</html>

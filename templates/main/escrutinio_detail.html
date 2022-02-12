@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+{% extends 'base/base.html'%}
+{% load widget_tweaks %}
+<html lang="en" dir="ltr">
+  <head>
+    <style>
+    .north {
+  transform:rotate(0deg);
+  -ms-transform:rotate(0deg); /* IE 9 */
+  -webkit-transform:rotate(0deg); /* Safari and Chrome */
+  }
+  .west {
+  transform:rotate(90deg);
+  -ms-transform:rotate(90deg); /* IE 9 */
+  -webkit-transform:rotate(90deg); /* Safari and Chrome */
+  }
+  .south {
+  transform:rotate(180deg);
+  -ms-transform:rotate(180deg); /* IE 9 */
+  -webkit-transform:rotate(180deg); /* Safari and Chrome */
+
+  }
+  .east {
+  transform:rotate(270deg);
+  -ms-transform:rotate(270deg); /* IE 9 */
+  -webkit-transform:rotate(270deg); /* Safari and Chrome */
+  }
+  </style>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% block content%}
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Panel <span class="fw-300"><i>Home</i></span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+
+
+                        <form id="formulario_acta" name="formulario_acta" class="needs-validation was-validated" novalidate="" enctype="multipart/form-data" method="GET" action="{% url 'candidatos-buscar' %}">
+
+                        <div class="panel-tag">
+                              Información General de la Votación
+                          </div>
+                          {% csrf_token %}
+                          <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label" for="validationTooltip01">Centro Educativo :-- {{obj.centro}} <span class="text-danger">*</span> </label>
+                                  <!-- {{ form.centro|add_class:"form-control select2" }} -->
+                                  <select name="centro" class="form-control select2 select2-hidden-accessible" required="" id="id_centro" data-select2-id="id_centro" tabindex="-1" aria-hidden="true" disabled>
+                                    {% for c in centro %}
+                                      <option value="{{c.pk}}" selected="" data-select2-id="1">{{c}}</option>
+                                    {% endfor %}
+                                    </select>
+                                <!-- <div class="valid-tooltip">
+                                    Correcto!!!
+                                </div> -->
+                            </div>
+                            <br>
+
+
+                          </div>
+                          <br>
+
+                          <!-- <button class="btn btn-info ml-auto waves-effect waves-themed" type="submit">Buscar</button>
+                          <br><br>
+                         -->
+
+                         {% if obj %}
+                          <div class="panel-tag">
+                            CANDIDATOS
+                          </div>
+                          <div class="row"><div class="col-sm-12"
+                            ><table id="candidatos" class="table table-bordered table-hover table-striped w-100 dataTable dtr-inline" role="grid" aria-describedby="dt-basic-example_info" style="width: 903px;">
+                                                <thead>
+                                                    <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 134px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">Name</th><th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 207px;" aria-label="Position: activate to sort column ascending">
+                                                      Nombre</th><th class="sorting" tabindex="0" aria-controls="dt-basic-example" rowspan="1" colspan="1" style="width: 97px;" aria-label="Office: activate to sort column ascending">Cantidad de Votos</th></tr>
+                                                </thead>
+                                                <tbody>
+                                                  {% for c1 in obj %}
+                                                  <tr role="row" class="odd">
+                                                        <td>
+                                                          <img id="img" name="img" src="{{c1.candidato.foto.url}}" class="img-fluid" alt="100%x250" style="height: 140px; width: 130px; display: block;" data-holder-rendered="true">
+                                                        </td>
+                                                        <td class="dtr-control sorting_1" tabindex="0">{{c1.candidato.nombre}}
+                                                        </td>
+                                                        <td>
+                                                          <input type="number" data-id="{{c1.candidato.pk}}" name="input_new_weight" value="{{c1.valor}}">
+                                                        </td>
+                                                    </tr>
+                                                  {% endfor %}
+
+
+
+                                              </tbody>
+                                                <tfoot>
+                                                    <tr><th rowspan="1" colspan="1">Name</th><th rowspan="1" colspan="1">Position</th><th rowspan="1" colspan="1">Office</th></tr>
+                                                </tfoot>
+                                            </table></div></div>
+                          <br>
+                          {% endif %}
+                        </form>
+                        <button class="btn btn-success ml-auto waves-effect waves-themed" onclick="Enviar();" >Modificar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    {% block script %}
+    <script type="text/javascript">
+
+    //select2-id_centro-container
+     $(document).ready(function() {
+
+    $('#id_centro').change(function(){
+    //alert($(this).val());
+    console.log('Para modificaciones posteriores')
+    })
+    })
+
+
+    function Enviar(){
+      //var formData = $("#formulario_acta").serialize();
+      centro_educativo = document.getElementById('id_centro').value;
+      console.log(centro_educativo)
+      //VALIDAMOS QUE LOS CAMPOS NO ESTEN VACIOS
+      if (centro_educativo == '' ){
+        toastr.error('Error en el formulario, por favor seleccione un centro de votación')
+      }
+      else{
+        new_weights = []
+        $("input[name='input_new_weight']").each(function(index, element){
+          if( $(this).val() != "" ){
+              var object_new_weight ={
+                id: $(this).data('id'),
+                corriente : 0,
+                new_weight: $(this).val()
+              }
+              new_weights.push(object_new_weight);
+          }
+        });
+          console.table(new_weights);
+          EnviarElementos(new_weights);
+      }
+    }
+
+    function EnviarElementos(votos)
+    {
+      toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-bottom-center",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": 300,
+  "hideDuration": 100,
+  "timeOut": 5000,
+  "extendedTimeOut": 1000,
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+      toastr.info('Guardando el acta, por favor espere la confirmación')
+      event.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "{% url 'escrutinio-guardar'%}",
+      data: {
+        'dataType': 'JSON',
+        'csrfmiddlewaretoken': '{{csrf_token}}',
+        'centro_educativo' :centro_educativo,
+        //'formulario': JSON.stringify(formulario),
+        'votos': JSON.stringify(votos)
+      },
+      success: function (response) {
+        if(response == 1){
+
+      toastr.options = {
+      "closeButton": true,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": false,
+      "positionClass": "toast-bottom-center",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": 300,
+      "hideDuration": 100,
+      "timeOut": 5000,
+      "extendedTimeOut": 1000,
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+          toastr.success('Acta agregada con exito')
+        }
+      }
+    });
+    return false;
+    }
+    $(function () {
+    $('.select2').select2();
+    });
+
+    </script>
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+{% load static %}
+<!--
+Template Name:  SmartAdmin Responsive WebApp - Template build with Twitter Bootstrap 4
+Version: 4.5.1
+Author: Sunnyat A.
+Website: http://gootbootstrap.com
+Purchase: https://wrapbootstrap.com/theme/smartadmin-responsive-webapp-WB0573SK0?ref=myorange
+License: You must have a valid license purchased only from wrapbootstrap.com (link above) in order to legally use this theme for your project.
+-->
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>
+            Sistema de Registro de Actas
+        </title>
+        <meta name="description" content="Login">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+        <!-- Call App Mode on ios devices -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <!-- Remove Tap Highlight on Windows Phone IE -->
+        <meta name="msapplication-tap-highlight" content="no">
+        <!-- base css -->
+
+        <link id="vendorsbundle" rel="stylesheet" href="{% static 'css/vendors.bundle.css'%}">
+        <link id="appbundle" rel="stylesheet" href="{% static 'css/app.bundle.css'%}">
+        <link id="mytheme" rel="stylesheet" media="screen, print" href="{% static 'css/themes/cust-theme-15.css'%}">
+        <link id="myskin"  rel="stylesheet" href="{% static 'css/skins/skin-master.css'%}">
+        <link rel="stylesheet" media="screen, print" href="{% static 'css/formplugins/select2/select2.bundle.css'%}">
+        <link rel="stylesheet" media="screen, print" href="{% static 'css/notifications/toastr/toastr.css'%}">
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="apple-touch-icon"  href="{% static 'img/favicon/apple-touch-icon.png'%}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon/favicon-32x32.png'%}">
+        <link rel="mask-icon" href="{% static 'img/favicon/safari-pinned-tab.svg'%}" color="#5bbad5">
+    </head>
+    <!-- BEGIN Body -->
+    <!-- Possible Classes
+
+		* 'header-function-fixed'         - header is in a fixed at all times
+		* 'nav-function-fixed'            - left panel is fixed
+		* 'nav-function-minify'			  - skew nav to maximize space
+		* 'nav-function-hidden'           - roll mouse on edge to reveal
+		* 'nav-function-top'              - relocate left pane to top
+		* 'mod-main-boxed'                - encapsulates to a container
+		* 'nav-mobile-push'               - content pushed on menu reveal
+		* 'nav-mobile-no-overlay'         - removes mesh on menu reveal
+		* 'nav-mobile-slide-out'          - content overlaps menu
+		* 'mod-bigger-font'               - content fonts are bigger for readability
+		* 'mod-high-contrast'             - 4.5:1 text contrast ratio
+		* 'mod-color-blind'               - color vision deficiency
+		* 'mod-pace-custom'               - preloader will be inside content
+		* 'mod-clean-page-bg'             - adds more whitespace
+		* 'mod-hide-nav-icons'            - invisible navigation icons
+		* 'mod-disable-animation'         - disables css based animations
+		* 'mod-hide-info-card'            - hides info card from left panel
+		* 'mod-lean-subheader'            - distinguished page header
+		* 'mod-nav-link'                  - clear breakdown of nav links
+
+		>>> more settings are described inside documentation page >>>
+	-->
+    <body>
+        <!-- DOC: script to save and load page settings -->
+        <script>
+            /**
+             *	This script should be placed right after the body tag for fast execution
+             *	Note: the script is written in pure javascript and does not depend on thirdparty library
+             **/
+            'use strict';
+
+            var classHolder = document.getElementsByTagName("BODY")[0],
+                /**
+                 * Load from localstorage
+                 **/
+                themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
+                {},
+                themeURL = themeSettings.themeURL || '',
+                themeOptions = themeSettings.themeOptions || '';
+            /**
+             * Load theme options
+             **/
+            if (themeSettings.themeOptions)
+            {
+                classHolder.className = themeSettings.themeOptions;
+                console.log("%c✔ Theme settings loaded", "color: #148f32");
+            }
+            else
+            {
+                console.log("%c✔ Heads up! Theme settings is empty or does not exist, loading default settings...", "color: #ed1c24");
+            }
+            if (themeSettings.themeURL && !document.getElementById('mytheme'))
+            {
+                var cssfile = document.createElement('link');
+                cssfile.id = 'mytheme';
+                cssfile.rel = 'stylesheet';
+                cssfile.href = themeURL;
+                document.getElementsByTagName('head')[0].appendChild(cssfile);
+
+            }
+            else if (themeSettings.themeURL && document.getElementById('mytheme'))
+            {
+                document.getElementById('mytheme').href = themeSettings.themeURL;
+            }
+            /**
+             * Save to localstorage
+             **/
+            var saveSettings = function()
+            {
+                themeSettings.themeOptions = String(classHolder.className).split(/[^\w-]+/).filter(function(item)
+                {
+                    return /^(nav|header|footer|mod|display)-/i.test(item);
+                }).join(' ');
+                if (document.getElementById('mytheme'))
+                {
+                    themeSettings.themeURL = document.getElementById('mytheme').getAttribute("href");
+                };
+                localStorage.setItem('themeSettings', JSON.stringify(themeSettings));
+            }
+            /**
+             * Reset settings
+             **/
+            var resetSettings = function()
+            {
+                localStorage.setItem("themeSettings", "");
+            }
+
+        </script>
+        <div class="page-wrapper auth">
+            <div class="page-inner bg-brand-gradient">
+                <div class="page-content-wrapper bg-transparent m-0">
+                    <div class="height-10 w-100 shadow-lg px-4 bg-brand-gradient">
+                        <div class="d-flex align-items-center container p-0">
+                            <div class="page-logo width-mobile-auto m-0 align-items-center justify-content-center p-0 bg-transparent bg-img-none shadow-0 height-9 border-0">
+                                <a href="" blank_ = "True" class="page-logo-link press-scale-down d-flex align-items-center">
+                                    <img src="{% static 'img/logo-red.png' %}" alt="SmartAdmin WebApp" aria-roledescription="logo">
+                                    <span class="page-logo-text mr-1">Area de Estadisticas del sistema </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-1" style="background: url(img/svg/pattern-1.svg) no-repeat center bottom fixed; background-size: cover;">
+                        <div class="container py-4 py-lg-5 my-lg-5 px-4 px-sm-0">
+                            <div class="row">
+                                <div class="col col-md-6 col-lg-7 hidden-sm-down">
+                                    <h2 class="fs-xxl fw-500 mt-4 text-white">
+                                        Dashboard Estadistico
+                                        <small class="h3 fw-300 mt-3 mb-5 text-white opacity-60">
+                                          Información de presidentes.
+                                        </small>
+                                    </h2>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-5 col-xl-4 ml-auto">
+                                    <h1 class="text-white fw-300 mb-3 d-sm-block d-md-none">
+                                        Secure login
+                                    </h1>
+
+
+                                    <div class="card p-2 rounded-plus bg-faded">
+                                      <a href="{% url 'login'%}" >Click aquí para ingresar al sitio.</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12">
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div id="panel-9" class="panel">
+                                            <div class="panel-hdr">
+                                                <h2>
+                                                    Estadisticas <span class="fw-300"><i>Presidencial Nacional</i></span>
+                                                </h2>
+                                                <div class="panel-toolbar">
+                                                    <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                                                    <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                                                    <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                                                </div>
+                                            </div>
+                                            <div class="panel-container show">
+                                                <div class="panel-content">
+
+                                                    <div class="panel-tag">
+                                                        <h1>Votos por Presidencial</h1>
+                                                        <!-- <h4>Acta Cargadas <span class="badge badge-warning">{{cargadas}}</span></h4>
+                                                        <h4>Acta en proceso <span class="badge badge-info">{{enproceso}}</span></h4>
+                                                        <h4>Acta Ingresadas <span class="badge badge-success">{{ingresadas}}</span></h4>
+                                                        <h4>Actas Totales <span class="badge badge-danger">{{documentos}}</span></h4> -->
+                                                    </div>
+
+                                                    <button type="button" class="btn btn-lg btn-default waves-effect waves-themed" data-toggle="modal" data-target=".example-modal-fullscreen">Modal Fullscreen</button>
+
+                                                    <form id="formulario_acta" name="formulario_acta" class="needs-validation" novalidate="" onsubmit="return myValidation();" enctype="multipart/form-data" method="GET" action="{% url 'estadistica-filtrar' %}">
+
+                                                      {% for d in doc %}
+                                                      <div class="bd-example">
+                                                      <img id="img" name="img" src="{{d.b64_doc_code}}" class="img-fluid" alt="100%x250" style="height: 100%; width: 100%; display: block;" data-holder-rendered="true">
+                                                      <input id="documento" type="text" name="documento" hidden value="{{d.pk}}">
+                                                      </div>
+                                                      {% endfor %}
+
+                                                      {% csrf_token %}
+                                                      <div class="form-row">
+
+                                                        <div class="col-md-4 mb-3">
+                                                          <label class="form-label" for="validationTooltip01">Departamento <span class="text-danger">*</span> </label>
+                                                          <select onchange="this.form.submit()" name="departamento" class="select2 form-control w-100" id="departamento" required>
+                                                            <option value="0"> --- </option>
+                                                            {% for d in departamentos %}
+                                                               {% if d.pk == departamento %}
+                                                              <option selected value="{{d.pk}}">{{d.nombre}}</option>
+                                                              {% else %}
+                                                              <option value="{{d.pk}}">{{d.nombre}}</option>
+                                                              {% endif %}
+
+                                                            {% endfor %}
+                                                          </select>
+                                                            <div class="valid-tooltip">
+                                                                Correcto!!!
+                                                            </div>
+                                                        </div>
+                                                        {% if municipios.count > 0 %}
+                                                        <div class="col-md-4 mb-3">
+                                                          <label class="form-label" for="validationTooltip01">Municipio <span class="text-danger">*</span> </label>
+                                                          <select onchange="this.form.submit()" name="municipio" class="select2 form-control w-100" id="municipio">
+                                                            <option value="0"> --- </option>
+                                                            {% for d in municipios %}
+                                                               {% if d.pk == municipio %}
+                                                              <option selected value="{{d.pk}}">{{d.nombre}}</option>
+                                                              {% else %}
+                                                              <option value="{{d.pk}}">{{d.nombre}}</option>
+                                                              {% endif %}
+
+                                                            {% endfor %}
+                                                          </select>
+                                                            <div class="valid-tooltip">
+                                                                Correcto!!!
+                                                            </div>
+                                                        </div>
+                                                        {% endif %}
+                                                        <br>
+
+                                                      </form>
+
+                                                      </div>
+                                                                                                            </div>
+                                                                                                            <div class="row">
+                                                                                    <div class="col-sm-6 col-xl-3">
+                                                                                        <div class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
+                                                                                            <div class="">
+                                                                                                <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                                                                                                    {{conteo_centros}}
+                                                                                                    <small class="m-0 l-h-n">Centros Registrados</small>
+                                                                                                </h3>
+                                                                                            </div>
+                                                                                            <i class="fal fa-home position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-sm-6 col-xl-3">
+                                                                                        <div class="p-3 bg-warning-400 rounded overflow-hidden position-relative text-white mb-g">
+                                                                                            <div class="">
+                                                                                                <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                                                                                                    {{conteo_mesas}}
+                                                                                                    <small class="m-0 l-h-n">Cantidad de Mesas Registradas</small>
+                                                                                                </h3>
+                                                                                            </div>
+                                                                                            <i class="fal fa-box-check position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" style="font-size: 6rem;"></i>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-sm-6 col-xl-3">
+                                                                                        <div class="p-3 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
+                                                                                            <div class="">
+                                                                                                <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                                                                                                    {{conteo_mesa_registrada}}
+                                                                                                    <small class="m-0 l-h-n">Mesa con votos</small>
+                                                                                                </h3>
+                                                                                            </div>
+                                                                                            <i class="fal fa-lightbulb position-absolute pos-right pos-bottom opacity-15 mb-n5 mr-n6" style="font-size: 8rem;"></i>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-sm-6 col-xl-3">
+                                                                                        <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
+                                                                                            <div class="">
+                                                                                                <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                                                                                                    {{porc}}%
+                                                                                                    <small class="m-0 l-h-n">Mesas procesadas</small>
+                                                                                                </h3>
+                                                                                            </div>
+                                                                                            <i class="fal fa-globe position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n4" style="font-size: 6rem;"></i>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                    {% if presidencial %}
+                                                    <div class="panel-tag">
+                                                        Votos a Nivel Presidencial <strong>{{descripcion}}</strong>
+                                                    </div>
+                                                    {% for p in presidencial%}
+                                                    {% if forloop.counter == 1 %}
+                                                    <div class="d-flex flex-wrap demo demo-h-spacing mt-3 mb-3">
+                                                    <div class="rounded-pill bg-red shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center flex-shrink-0">
+                                                      <img src="/media/{{p.candidato__foto}}" alt="Sunny A." class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">
+                                                      <div class="ml-2 mr-3">
+                                                        <h5 class="m-0">
+                                                            {{p.candidato__nombre}}
+                                                            <small class="m-0 fw-300">
+                                                              Candidato más votado con <strong>{{p.num_votos}}</strong>
+                                                            </small>
+                                                          </h5>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                    <div id="chartdiv" style="width: 100%; height: 450px; max-height: 450px; position: relative;">
+                                                    </div>
+                                                    {% endif %}
+
+                                                    {% if municipales %}
+                                                    <div class="panel-tag">
+                                                        Votos a Nivel Municipal <strong>{{descripcion}}</strong>
+                                                    </div>
+                                                    {% for p in municipales%}
+                                                    {% if forloop.counter == 1 %}
+                                                    <div class="d-flex flex-wrap demo demo-h-spacing mt-3 mb-3">
+                                                    <div class="rounded-pill bg-red shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center flex-shrink-0">
+                                                      <img src="/media/{{p.candidato__foto}}" alt="Sunny A." class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">
+                                                      <div class="ml-2 mr-3">
+                                                        <h5 class="m-0">
+                                                            {{p.candidato__nombre}}
+                                                            <small class="m-0 fw-300">
+                                                              Candidato más votado con <strong>{{p.num_votos}}</strong>
+                                                            </small>
+                                                          </h5>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                    <div id="chartdivm" style="width: 100%; height: 450px; max-height: 450px; position: relative;">
+                                                    </div>
+                                                    {% endif %}
+
+
+                                                    {% if diputaciones %}
+                                                    {% if partidos %}
+                                                    {% for p in partidos%}
+
+                                                    <div class="panel-tag">
+                                                        Votos a Nivel de Diputados <strong>{{p.candidato__partido__nombre}}</strong>
+                                                        <img src="/media/{{p.candidato__partido__logo}}" alt="Sunny A." class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">
+                                                    </div>
+                                                    <div id="chartdiv{{p.candidato__partido}}" style="width: 100%; height: 450px; max-height: 450px; position: relative;">
+                                                    </div>
+                                                    {% endfor%}
+                                                    {% endif %}
+                                                    {% endif %}
+                                                  </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="position-absolute pos-bottom pos-left pos-right p-3 text-center text-white">
+                                2021 © SRV &nbsp;<a href='' class='text-white opacity-40 fw-500' title='gotbootstrap.com' target='_blank'></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- BEGIN Color profile -->
+        <!-- this area is hidden and will not be seen on screens or screen readers -->
+        <!-- we use this only for CSS color refernce for JS stuff -->
+        <p id="js-color-profile" class="d-none">
+            <span class="color-primary-50"></span>
+            <span class="color-primary-100"></span>
+            <span class="color-primary-200"></span>
+            <span class="color-primary-300"></span>
+            <span class="color-primary-400"></span>
+            <span class="color-primary-500"></span>
+            <span class="color-primary-600"></span>
+            <span class="color-primary-700"></span>
+            <span class="color-primary-800"></span>
+            <span class="color-primary-900"></span>
+            <span class="color-info-50"></span>
+            <span class="color-info-100"></span>
+            <span class="color-info-200"></span>
+            <span class="color-info-300"></span>
+            <span class="color-info-400"></span>
+            <span class="color-info-500"></span>
+            <span class="color-info-600"></span>
+            <span class="color-info-700"></span>
+            <span class="color-info-800"></span>
+            <span class="color-info-900"></span>
+            <span class="color-danger-50"></span>
+            <span class="color-danger-100"></span>
+            <span class="color-danger-200"></span>
+            <span class="color-danger-300"></span>
+            <span class="color-danger-400"></span>
+            <span class="color-danger-500"></span>
+            <span class="color-danger-600"></span>
+            <span class="color-danger-700"></span>
+            <span class="color-danger-800"></span>
+            <span class="color-danger-900"></span>
+            <span class="color-warning-50"></span>
+            <span class="color-warning-100"></span>
+            <span class="color-warning-200"></span>
+            <span class="color-warning-300"></span>
+            <span class="color-warning-400"></span>
+            <span class="color-warning-500"></span>
+            <span class="color-warning-600"></span>
+            <span class="color-warning-700"></span>
+            <span class="color-warning-800"></span>
+            <span class="color-warning-900"></span>
+            <span class="color-success-50"></span>
+            <span class="color-success-100"></span>
+            <span class="color-success-200"></span>
+            <span class="color-success-300"></span>
+            <span class="color-success-400"></span>
+            <span class="color-success-500"></span>
+            <span class="color-success-600"></span>
+            <span class="color-success-700"></span>
+            <span class="color-success-800"></span>
+            <span class="color-success-900"></span>
+            <span class="color-fusion-50"></span>
+            <span class="color-fusion-100"></span>
+            <span class="color-fusion-200"></span>
+            <span class="color-fusion-300"></span>
+            <span class="color-fusion-400"></span>
+            <span class="color-fusion-500"></span>
+            <span class="color-fusion-600"></span>
+            <span class="color-fusion-700"></span>
+            <span class="color-fusion-800"></span>
+            <span class="color-fusion-900"></span>
+        </p>
+
+
+        <div class="modal fade modal-fullscreen example-modal-fullscreen" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content h-100 border-0 shadow-0 bg-fusion-800">
+                                                        <button type="button" class="close p-sm-2 p-md-4 text-white fs-xxl position-absolute pos-right mr-sm-2 mt-sm-1 z-index-space" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                                        </button>
+                                                        <div class="modal-body p-0">
+                                                          <div class="row">
+                                                              <div class="col-xl-12">
+                                                                  <div id="panel-1" class="panel">
+                                                                      <div class="panel-hdr">
+                                                                          <h2>
+                                                                              Example <span class="fw-300"><i>Table</i></span>
+                                                                          </h2>
+                                                                          <div class="panel-toolbar">
+                                                                              <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                                                                              <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                                                                              <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="panel-container show">
+                                                                          <div class="panel-content" style=" height:700px;
+  overflow-y: scroll;">
+                                                                              <div class="panel-tag">
+                                                                                  <p>
+                                                                                      Sección que lista los candidatos , en esta sección se pueden editar o eliminar los candidatos
+                                                                                  </p>
+                                                                              </div>
+                                                                              <!-- datatable start -->
+                                                                              <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100" style="font-size:18px">
+
+                                                                                  <thead class="bg-primary-600">
+                                                                                      <tr>
+                                                                                          <th>Foto</th>
+                                                                                          <th>Nombre</th>
+                                                                                          <th>Cantidad de Votos</th>
+                                                                                      </tr>
+                                                                                  </thead>
+                                                                                  <tbody>
+
+                                                                                    {% for o in presidencial %}
+                                                                                    {% if forloop.counter == 1 %}
+                                                                                    <tr>
+                                                                                      <td colspan="3" style="text-align:center">
+                                                                                        <div class="alert alert-danger alert-dismissible fade show">
+                                                                                          <strong><h3>Presidencial</h3></strong>
+
+                                                                                        </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    {% endif %}
+                                                                                      <tr >
+                                                                                        <td style="text-align: -webkit-center;">
+                                                                                          <img src="/media/{{o.candidato__foto}}" alt="Sunny A." class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">
+
+                                                                                        </td>
+                                                                                          <td>{{o.candidato__nombre}} -- {{forloop.counter}}</td>
+                                                                                          <td>{{o.num_votos}}</td>
+                                                                                      </tr>
+                                                                                    {% endfor %}
+                                                                                    {% for o in diputaciones %}
+                                                                                    {% if forloop.counter == 1 %}
+                                                                                    <tr>
+                                                                                      <td colspan="3" style="text-align:center">
+                                                                                        <div class="alert alert-danger alert-dismissible fade show">
+                                                                                          <strong><h3>Diputaciones</h3></strong>
+
+                                                                                        </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    {% endif %}
+                                                                                      <tr >
+                                                                                        <td style="text-align: -webkit-center;">
+                                                                                          <img src="/media/{{o.candidato__foto}}" alt="Sunny A." class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">
+
+                                                                                        </td>
+                                                                                          <td>{{o.candidato__nombre}}</td>
+                                                                                          <td>{{o.num_votos}}</td>
+                                                                                      </tr>
+                                                                                    {% endfor %}
+                                                                                  </tbody>
+                                                                                  <tfoot>
+                                                                                      <tr>
+                                                                                        <th>Tipo</th>
+                                                                                        <th>Corriente</th>
+                                                                                      </tr>
+                                                                                  </tfoot>
+                                                                              </table>
+                                                                              <!-- datatable end -->
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+        <!-- END Color profile -->
+        <!-- base vendor bundle:
+			 DOC: if you remove pace.js from core please note on Internet Explorer some CSS animations may execute before a page is fully loaded, resulting 'jump' animations
+						+ pace.js (recommended)
+						+ jquery.js (core)
+						+ jquery-ui-cust.js (core)
+						+ popper.js (core)
+						+ bootstrap.js (core)
+						+ slimscroll.js (extension)
+						+ app.navigation.js (core)
+						+ ba-throttle-debounce.js (core)
+						+ waves.js (extension)
+						+ smartpanels.js (extension)
+						+ src/../jquery-snippets.js (core) -->
+            <script src="{% static 'js/vendors.bundle.js'%}"></script>
+            <script src="{% static 'js/app.bundle.js'%}"></script>
+            <script src="{% static 'js/app.bundle.js'%}"></script>
+            <script src="{% static 'js/app.bundle.js'%}"></script>
+
+            <script src="{% static 'js/statistics/d3/d3.js'%}"></script>
+            <script src="{% static 'js/statistics/c3/c3.js'%}"></script>
+            <script src="{% static 'js/statistics/demo-data/demo-c3.js' %}"></script>
+            <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+            <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+            <script src="https://cdn.amcharts.com/lib/4/themes/kelly.js"></script>
+            <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+            <script src="{% static 'js/formplugins/select2/select2.bundle.js'%}"></script>
+            <script src="{% static 'js/notifications/toastr/toastr.js'%}"></script>
+        <script type="text/javascript">
+        function change_session(){
+          alert('cambiando_select');
+        }
+        am4core.ready(function() {
+          toastr.options = {
+          "closeButton": true,
+          "debug": false,
+          "newestOnTop": false,
+          "progressBar": false,
+          "positionClass": "toast-top-left",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": 300,
+          "hideDuration": 100,
+          "timeOut": 5000,
+          "extendedTimeOut": 1000,
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+
+
+          if ({{error}} == 1){
+            toastr.warning('Error, por favor Seleccione un departamento')
+          }
+          if ({{error}} == 2){
+            toastr.warning('Error, para las diputaciones es necesario seleccionar un departamento')
+          }
+
+// Themes begin
+
+/********************************INICIA EL AREA DE LOS GRAFICOS*********************************************************/
+am4core.useTheme(am4themes_animated);
+
+{% if presidencial %}
+var chart = am4core.create("chartdiv", am4charts.XYChart);
+chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+chart.paddingBottom = 30;
+
+chart.data = [
+  {% for e in presidencial %}
+      {
+      //"candidato": nombre_corto("{{e.candidato__nombre}}"),
+      "candidato": "{{e.candidato__nombre}}",
+      "votos":     {{e.num_votos}},
+      "color": chart.colors.next(),
+      //Para el server
+      //"href": '../{{e.candidato__foto}}'
+      "href": '/media/{{e.candidato__foto}}'
+      },
+  {% endfor %}
+  /*
+   {
+    "name": "Chandler",
+    "steps": 11561,
+    "href": "https://www.amcharts.com/wp-content/uploads/2019/04/chandler.jpg"
+}*/
+];
+
+var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "candidato";
+categoryAxis.renderer.grid.template.strokeOpacity = 0;
+categoryAxis.renderer.minGridDistance = 10;
+categoryAxis.renderer.labels.template.dy = 35;
+categoryAxis.renderer.tooltip.dy = 35;
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.renderer.inside = true;
+valueAxis.renderer.labels.template.fillOpacity = 0.3;
+valueAxis.renderer.grid.template.strokeOpacity = 0;
+valueAxis.min = 0;
+valueAxis.cursorTooltipEnabled = false;
+valueAxis.renderer.baseGrid.strokeOpacity = 0;
+
+var series = chart.series.push(new am4charts.ColumnSeries);
+series.dataFields.valueY = "votos";
+series.dataFields.categoryX = "candidato";
+series.tooltipText = "{valueY.value}";
+series.tooltip.pointerOrientation = "vertical";
+series.tooltip.dy = - 6;
+series.columnsContainer.zIndex = 100;
+
+var columnTemplate = series.columns.template;
+columnTemplate.width = am4core.percent(50);
+columnTemplate.maxWidth = 66;
+columnTemplate.column.cornerRadius(60, 60, 10, 10);
+columnTemplate.strokeOpacity = 0;
+
+series.heatRules.push({ target: columnTemplate, property: "fill", dataField: "valueY", min: am4core.color("#e5dc36"), max: am4core.color("#5faa46") });
+series.mainContainer.mask = undefined;
+
+var cursor = new am4charts.XYCursor();
+chart.cursor = cursor;
+cursor.lineX.disabled = true;
+cursor.lineY.disabled = true;
+cursor.behavior = "none";
+
+var bullet = columnTemplate.createChild(am4charts.CircleBullet);
+bullet.circle.radius = 30;
+bullet.valign = "bottom";
+bullet.align = "center";
+bullet.isMeasured = true;
+bullet.mouseEnabled = false;
+bullet.verticalCenter = "bottom";
+bullet.interactionsEnabled = false;
+
+var hoverState = bullet.states.create("hover");
+var outlineCircle = bullet.createChild(am4core.Circle);
+outlineCircle.adapter.add("radius", function (radius, target) {
+    var circleBullet = target.parent;
+    return circleBullet.circle.pixelRadius + 10;
+})
+
+var image = bullet.createChild(am4core.Image);
+image.width = 60;
+image.height = 60;
+image.horizontalCenter = "middle";
+image.verticalCenter = "middle";
+image.propertyFields.href = "href";
+
+image.adapter.add("mask", function (mask, target) {
+    var circleBullet = target.parent;
+    return circleBullet.circle;
+})
+
+var previousBullet;
+chart.cursor.events.on("cursorpositionchanged", function (event) {
+    var dataItem = series.tooltipDataItem;
+
+    if (dataItem.column) {
+        var bullet = dataItem.column.children.getIndex(1);
+
+        if (previousBullet && previousBullet != bullet) {
+            previousBullet.isHover = false;
+        }
+
+        if (previousBullet != bullet) {
+
+            var hs = bullet.states.getKey("hover");
+            hs.properties.dy = -bullet.parent.pixelHeight + 30;
+            bullet.isHover = true;
+
+            previousBullet = bullet;
+        }
+    }
+})
+////////////////////////////////////////////////////////////
+{% endif %}
+
+/********************************/
+{% if municipales %}
+var chart = am4core.create("chartdivm", am4charts.XYChart);
+chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+chart.paddingBottom = 30;
+
+chart.data = [
+  {% for m in municipales %}
+      {
+      //"candidato": nombre_corto("{{e.candidato__nombre}}"),
+      "candidato": "{{m.candidato__nombre}}",
+      "votos":     {{m.num_votos}},
+      "color": chart.colors.next(),
+      //Para el server
+      //"href": '../{{e.candidato__foto}}'
+      "href": '/media/{{m.candidato__foto}}'
+      },
+  {% endfor %}
+  /*
+   {
+    "name": "Chandler",
+    "steps": 11561,
+    "href": "https://www.amcharts.com/wp-content/uploads/2019/04/chandler.jpg"
+}*/
+];
+
+var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "candidato";
+categoryAxis.renderer.grid.template.strokeOpacity = 0;
+categoryAxis.renderer.minGridDistance = 10;
+categoryAxis.renderer.labels.template.dy = 35;
+categoryAxis.renderer.tooltip.dy = 35;
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.renderer.inside = true;
+valueAxis.renderer.labels.template.fillOpacity = 0.3;
+valueAxis.renderer.grid.template.strokeOpacity = 0;
+valueAxis.min = 0;
+valueAxis.cursorTooltipEnabled = false;
+valueAxis.renderer.baseGrid.strokeOpacity = 0;
+
+var series = chart.series.push(new am4charts.ColumnSeries);
+series.dataFields.valueY = "votos";
+series.dataFields.categoryX = "candidato";
+series.tooltipText = "{valueY.value}";
+series.tooltip.pointerOrientation = "vertical";
+series.tooltip.dy = - 6;
+series.columnsContainer.zIndex = 100;
+
+var columnTemplate = series.columns.template;
+columnTemplate.width = am4core.percent(50);
+columnTemplate.maxWidth = 66;
+columnTemplate.column.cornerRadius(60, 60, 10, 10);
+columnTemplate.strokeOpacity = 0;
+
+series.heatRules.push({ target: columnTemplate, property: "fill", dataField: "valueY", min: am4core.color("#e5dc36"), max: am4core.color("#5faa46") });
+series.mainContainer.mask = undefined;
+
+var cursor = new am4charts.XYCursor();
+chart.cursor = cursor;
+cursor.lineX.disabled = true;
+cursor.lineY.disabled = true;
+cursor.behavior = "none";
+
+var bullet = columnTemplate.createChild(am4charts.CircleBullet);
+bullet.circle.radius = 30;
+bullet.valign = "bottom";
+bullet.align = "center";
+bullet.isMeasured = true;
+bullet.mouseEnabled = false;
+bullet.verticalCenter = "bottom";
+bullet.interactionsEnabled = false;
+
+var hoverState = bullet.states.create("hover");
+var outlineCircle = bullet.createChild(am4core.Circle);
+outlineCircle.adapter.add("radius", function (radius, target) {
+    var circleBullet = target.parent;
+    return circleBullet.circle.pixelRadius + 10;
+})
+
+var image = bullet.createChild(am4core.Image);
+image.width = 60;
+image.height = 60;
+image.horizontalCenter = "middle";
+image.verticalCenter = "middle";
+image.propertyFields.href = "href";
+
+image.adapter.add("mask", function (mask, target) {
+    var circleBullet = target.parent;
+    return circleBullet.circle;
+})
+
+var previousBullet;
+chart.cursor.events.on("cursorpositionchanged", function (event) {
+    var dataItem = series.tooltipDataItem;
+
+    if (dataItem.column) {
+        var bullet = dataItem.column.children.getIndex(1);
+
+        if (previousBullet && previousBullet != bullet) {
+            previousBullet.isHover = false;
+        }
+
+        if (previousBullet != bullet) {
+
+            var hs = bullet.states.getKey("hover");
+            hs.properties.dy = -bullet.parent.pixelHeight + 30;
+            bullet.isHover = true;
+
+            previousBullet = bullet;
+        }
+    }
+})
+////////////////////////////////////////////////////////////
+{% endif %}
+
+
+/************************************/
+
+/*GRAFICO DE PASTEL PARA LOS DIPUTADOS*/
+
+{% if diputaciones %}
+{% for p in partidos %}
+var chart = am4core.create("chartdiv{{p.candidato__partido}}", am4charts.PieChart);
+//chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+//chart.hiddenState.properties.opacity = 0;
+
+chart.legend = new am4charts.Legend();
+chart.data = [
+  {% for e in diputaciones %}
+  {% if e.candidato__partido == p.candidato__partido %}
+      {
+      //"candidato": nombre_corto("{{e.candidato__nombre}}"),
+      "country": "{{e.candidato__nombre}}",
+      "litres":     {{e.num_votos}},
+        },
+  {% endif %}
+  {% endfor %}
+  /*
+   {
+    "name": "Chandler",
+    "steps": 11561,
+    "href": "https://www.amcharts.com/wp-content/uploads/2019/04/chandler.jpg"
+}*/
+];
+
+// Add and configure Series
+var pieSeries = chart.series.push(new am4charts.PieSeries());
+pieSeries.dataFields.value = "litres";
+pieSeries.dataFields.category = "country";
+pieSeries.slices.template.stroke = am4core.color("#fff");
+pieSeries.slices.template.strokeOpacity = 1;
+
+// This creates initial animation
+pieSeries.hiddenState.properties.opacity = 1;
+pieSeries.hiddenState.properties.endAngle = -90;
+pieSeries.hiddenState.properties.startAngle = -90;
+
+chart.hiddenState.properties.radius = am4core.percent(0);
+{% endfor %}
+{% endif %}
+
+
+
+
+
+
+
+
+});
+
+$('.select2').select2();
+
+$('#select_departamentos').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+    //alert(valueSelected);
+});
+
+            $("#js-login-btn").click(function(event)
+            {
+
+                // Fetch form to apply custom Bootstrap validation
+                var form = $("#js-login")
+
+                if (form[0].checkValidity() === false)
+                {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.addClass('was-validated');
+                // Perform ajax submit here...
+            });
+
+
+
+        </script>
+    </body>
+    <!-- END Body -->
+</html>
